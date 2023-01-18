@@ -7,6 +7,13 @@
 -->
 # 开发记录
 
+## 日常问题
+### react
+
+- ✔️[输入框修改用户输入，光标变到最后位置](https://github.com/shaokr/development-record/issues/4)
+### antd
+- 
+
 ## vscode插件
 ### 【[jr-tools](https://marketplace.visualstudio.com/items?itemName=jr-tools.jr-tools)】为解决公司业务中会出现的一些问题开发的插件工具集
 
