@@ -41,7 +41,7 @@ export class CursorCorrection extends React.Component<CursorCorrectionProps> {
     const childrenOnChange = _.get(this.props, 'children.props.onChange') as any;
     void childrenOnChange?.(e);
     const onChange = _.get(this.props, 'onChange') as any;
-    onChange?.(e);
+    void onChange?.(e);
 
     this.target = e.target;
     this.inputSelection = {
