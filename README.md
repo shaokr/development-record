@@ -22,10 +22,12 @@
 - ✔️常量生成
 - ✔️持续常量生成
 - ✔️快速创建模块功能
+	- 提取出来创建一个独立的插件工具
 
 ### 问题
 - ✔️ [加载工作区内的js文件](https://github.com/shaokr/development-record/issues/1) 
-- ❌ [vscode访问插件内文件内容](https://github.com/shaokr/development-record/issues/2)
+- [vscode访问插件内文件内容](https://github.com/shaokr/development-record/issues/2)
+- ✔️ [工作区中鼠标右键菜单显示控制]()
 
 ### 【[skr-tools](https://marketplace.visualstudio.com/items?itemName=shaokr.skr-tools)】自己偷懒用的一些工具集
 
