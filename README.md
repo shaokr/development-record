@@ -23,6 +23,8 @@
 	- 🛌 偶尔出现抽搐现象
 
 ## vscode插件
+### 相关内容
+- [api文档](https://vscode-api-cn.js.org/)
 ### 【[jr-tools](https://marketplace.visualstudio.com/items?itemName=jr-tools.jr-tools)】为解决公司业务中会出现的一些问题开发的插件工具集
 
 - ✅ 右键编译功能
