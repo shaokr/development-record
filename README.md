@@ -2,7 +2,7 @@
  * @Author: kangrun.shao kangrun.shao@ly.com
  * @Date: 2023-01-18
  * @LastEditors: kangrun.shao kangrun.shao@ly.com
- * @LastEditTime: 2023-01-18
+ * @LastEditTime: 2023-01-19
  * @Description: 
 -->
 # 开发记录
@@ -11,8 +11,12 @@
 ### react
 
 - ✔️[输入框修改用户输入，光标变到最后位置](https://github.com/shaokr/development-record/issues/4)
+	- ✔️可控制光标显示位置
 ### antd
-- ✔️table表单虚拟滚动条
+- ✔️Table表单虚拟滚动条
+	- 干掉定时器去获取宽度
+	- 兼容Table的summary属性
+	- 偶尔出现抽搐现象
 
 ## vscode插件
 ### 【[jr-tools](https://marketplace.visualstudio.com/items?itemName=jr-tools.jr-tools)】为解决公司业务中会出现的一些问题开发的插件工具集
@@ -40,10 +44,12 @@
 - ✔️获取文件夹小驼峰
 - ✔️获取当前文件目录下所有内容的引用
 - ✔️模板快速生成内容
+	- 使用js去做模板配置
 - ✔️根据yapi生成mock文件
 - ❌（不维护-后续删除）转换数据为antd表格用的columns数据-可用模板快速生成功能替代
-- ❌（不维护-后续删除）转换数据为antd的Form表单Item数据-可用模板快速生成功能替代
+- ❌（不维护-后续删除）转换数据为antd的Form表单Item数据
 - ✔️根据ts(需要含注释)填写表格dataIndex
+- ✔️ts类型映射写入
 
 ### 问题
 - ✔️ [输出内容到当前光标位置](https://github.com/shaokr/development-record/issues/3)
