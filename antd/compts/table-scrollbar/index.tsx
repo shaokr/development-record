@@ -2,14 +2,13 @@
  * @Author: kangrun.shao kangrun.shao@ly.com
  * @Date: 2022-12-09
  * @LastEditors: kangrun.shao kangrun.shao@ly.com
- * @LastEditTime: 2023-01-06
+ * @LastEditTime: 2023-01-19
  * @Description: 表格浮动滚动条
  *
  */
-import { useEffectCustom } from '@flatbiz/antd';
 import { useDocumentVisibility, useEventListener, useGetState } from 'ahooks';
 import { Affix, Table } from 'antd';
-import { cloneElement, useRef } from 'react';
+import { cloneElement, useRef, useEffect } from 'react';
 
 import styles from './style.module.less';
 
@@ -42,7 +41,7 @@ const ScrollbarSummary = () => {
 
   const _target = (document.querySelector('.page') || document.body) as HTMLElement;
   // 持续获取
-  useEffectCustom(() => {
+  useEffect(() => {
     const i = setInterval(() => {
       if (documentVisibility === 'visible' && getShow() && refScroll.current && refPScroll.current) {
         const div = getParentNode('ant-table-content', refScroll.current.parentElement);
