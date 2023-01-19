@@ -35,7 +35,7 @@
 
 ### 问题
 - ✅ [加载工作区内的js文件](https://github.com/shaokr/development-record/issues/1) 
-- [vscode访问插件内文件内容](https://github.com/shaokr/development-record/issues/2)
+- ❓︎ [vscode访问插件内文件内容](https://github.com/shaokr/development-record/issues/2)
 - ✅ [工作区中鼠标右键菜单显示控制]
 - ❓︎ [插件载入马上读取项目中的js会造成编辑器卡死问题](https://github.com/shaokr/development-record/issues/6)
 
