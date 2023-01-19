@@ -27,6 +27,7 @@
 - ✔️持续常量生成
 - ✔️快速创建模块功能
 	- 提取出来创建一个独立的插件工具
+	- 新增默认右键中的目录为模块输出地址
 
 ### 问题
 - ✔️ [加载工作区内的js文件](https://github.com/shaokr/development-record/issues/1) 
