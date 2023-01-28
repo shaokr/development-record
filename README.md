@@ -2,7 +2,7 @@
  * @Author: kangrun.shao kangrun.shao@ly.com
  * @Date: 2023-01-18
  * @LastEditors: kangrun.shao kangrun.shao@ly.com
- * @LastEditTime: 2023-01-19
+ * @LastEditTime: 2023-01-28
  * @Description: 
 -->
 # 开发记录
@@ -40,6 +40,7 @@
 - ❓︎ [vscode访问插件内文件内容](https://github.com/shaokr/development-record/issues/2)
 - ✅ [工作区中鼠标右键菜单显示控制]
 - ❓︎ [插件载入马上读取项目中的js会造成编辑器卡死问题](https://github.com/shaokr/development-record/issues/6)
+- 🧑‍💻 [工作区中右键功能也在命令中出现](https://github.com/shaokr/development-record/issues/7)
 
 ### 【[skr-tools](https://marketplace.visualstudio.com/items?itemName=shaokr.skr-tools)】自己偷懒用的一些工具集
 
