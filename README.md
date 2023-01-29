@@ -2,12 +2,12 @@
  * @Author: kangrun.shao kangrun.shao@ly.com
  * @Date: 2023-01-18
  * @LastEditors: kangrun.shao kangrun.shao@ly.com
- * @LastEditTime: 2023-01-28
+ * @LastEditTime: 2023-01-29
  * @Description: 
 -->
 # 开发记录
 🛌 = 待开发
-🧑‍💻 = 开发中
+🧑‍💻 = 开发/解决中
 ✅ = 已解决
 ❓︎ = 存在问题
 ❌ = 不管了
@@ -18,9 +18,11 @@
 	- ✅ 可控制光标显示位置
 ### antd
 - ✅ [Table表单虚拟滚动条](https://github.com/shaokr/development-record/issues/5)
+	- 🧑‍💻 滚动条会出表格区域
 	- 🛌 干掉定时器去获取宽度方式
 	- 🛌 因占用summary属性让使用者无法使用summary属性的问题
 	- 🛌 偶尔出现抽搐现象
+
 
 ## vscode插件
 ### 相关内容
