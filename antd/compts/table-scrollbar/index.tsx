@@ -2,92 +2,120 @@
  * @Author: kangrun.shao kangrun.shao@ly.com
  * @Date: 2022-12-09
  * @LastEditors: kangrun.shao kangrun.shao@ly.com
- * @LastEditTime: 2023-01-19
+ * @LastEditTime: 2023-01-30
  * @Description: 表格浮动滚动条
  *
  */
-import { useDocumentVisibility, useEventListener, useGetState } from 'ahooks';
-import { Affix, Table } from 'antd';
-import { cloneElement, useRef, useEffect } from 'react';
+import { useCreation, useEventListener, useInViewport, useSize } from 'ahooks';
+import { Affix } from 'antd';
+import _ from 'lodash';
+import { cloneElement, useRef, useState, useEffect } from 'react';
 
 import styles from './style.module.less';
 
 type TableScrollProps = {
   children: React.ReactNode;
+  /**
+   * y轴的滚动条
+   */
   target?: HTMLElement;
 };
 
-const getParentNode = (
-  classname: string,
-  parentNode: HTMLElement | null | undefined,
-): HTMLElement | undefined => {
+const getParentNodeScroll = (parentNode: HTMLElement | null | undefined): HTMLElement | undefined => {
   if (!parentNode) return undefined;
-  if (parentNode.classList.value.includes(classname)) {
+  if (parentNode.scrollHeight - parentNode.clientHeight > 50) {
     return parentNode;
   }
-  return getParentNode(classname, parentNode.parentNode as HTMLElement);
+  return getParentNodeScroll(parentNode.parentNode as HTMLElement);
 };
 
 export const TableScrollbar = ({ children, target }: TableScrollProps) => {
+  const summary: any = _.get(children, 'props.summary');
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  return cloneElement(children as any, { summary: () => <ScrollbarSummary /> });
+  return cloneElement(children as any, {
+    summary: (...args) => (
+      <>
+        {summary?.(...args)}
+        <ScrollbarSummary target={target} />
+      </>
+    ),
+  });
 };
-
-const ScrollbarSummary = () => {
+type ScrollbarSummaryProps = {
+  target?: HTMLElement;
+};
+const ScrollbarSummary = ({ target }: ScrollbarSummaryProps) => {
+  const refScrollBox = useRef<HTMLDivElement>();
   const refScroll = useRef<HTMLDivElement>();
-  const refPScroll = useRef<HTMLDivElement>();
-  const documentVisibility = useDocumentVisibility();
-  const [show, setShow, getShow] = useGetState<boolean>(false);
-
-  const _target = (document.querySelector('.page') || document.body) as HTMLElement;
-  // 持续获取
-  useEffect(() => {
-    const i = setInterval(() => {
-      if (documentVisibility === 'visible' && getShow() && refScroll.current && refPScroll.current) {
-        const div = getParentNode('ant-table-content', refScroll.current.parentElement);
-        const div2 = getParentNode('ant-table-summary', refScroll.current.parentElement);
-        if (refScroll.current.clientWidth != div?.clientWidth) {
-          refScroll.current.style.width = `${div?.clientWidth || 0}px`;
-        }
-        if (refPScroll.current.clientWidth != div2?.clientWidth) {
-          refPScroll.current.style.width = `${div2?.clientWidth || 0}px`;
-        }
+  // 控制滚动条的显示
+  const [show, setShow] = useState<boolean>(false);
+  // 获取表格和表格包裹框
+  const { table, tableBox } = useCreation(() => {
+    const getParentTable = (parentNode: HTMLElement | null | undefined): HTMLElement | undefined => {
+      if (!parentNode) return undefined;
+      if (parentNode.nodeName === 'TABLE') {
+        return parentNode;
       }
-    }, 500);
-    return () => clearInterval(i);
-  }, [documentVisibility]);
+      return getParentTable(parentNode.parentNode as HTMLElement);
+    };
+    const table = getParentTable(refScrollBox?.current?.parentElement);
+    return {
+      table,
+      tableBox: table?.parentElement,
+    };
+  }, [refScrollBox.current]);
+  // 表格是否显示
+  const [inViewport] = useInViewport(table?.querySelector('tbody'));
+  // 监听左右滚动框的大小变化
+  const size = useSize(tableBox);
+  // 获取上下滚动事件的滚动条
+  const _target = useCreation(() => {
+    if (target) return target;
+    return getParentNodeScroll(table) || document.body;
+  }, [target, table, size]);
+
+  useEffect(() => {
+    if (show && refScrollBox.current && refScroll.current) {
+      if (refScrollBox.current.clientWidth != tableBox?.clientWidth) {
+        refScrollBox.current.style.width = `${tableBox?.clientWidth || 0}px`;
+      }
+      if (refScroll.current.clientWidth != table?.clientWidth) {
+        refScroll.current.style.width = `${table?.clientWidth || 0}px`;
+      }
+    }
+  }, [size, show]);
+
   // 注册原始滚动条事件
   useEventListener(
     'scroll',
     ({ target }) => {
-      if (refScroll.current) {
-        refScroll.current.scrollLeft = target.scrollLeft;
+      if (refScrollBox.current) {
+        refScrollBox.current.scrollLeft = target.scrollLeft;
       }
     },
-    { target: () => getParentNode('ant-table-content', refScroll.current?.parentElement) },
+    { target: () => tableBox },
   );
   // 注册原始自定义滚动条时间
   useEventListener(
     'scroll',
     ({ target }) => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      const cont = getParentNode('ant-table-content', target);
-      if (cont) cont.scrollLeft = target.scrollLeft;
+      if (tableBox) tableBox.scrollLeft = target.scrollLeft;
     },
-    { target: refScroll },
+    { target: refScrollBox },
   );
   return (
-    <Table.Summary.Cell colSpan={9999} index={1}>
+    <div className={styles.scrollbarMain}>
       <Affix
-        offsetBottom={15}
+        offsetBottom={inViewport ? 13 : 0}
         style={{ opacity: show ? 1 : 0 }}
         onChange={(value) => setShow(!!value)}
         target={() => _target}
       >
-        <div ref={refScroll as any} className={styles.scrollbarBox}>
-          <div ref={refPScroll as any} style={{ height: 1 }}></div>
+        <div ref={refScrollBox as any} className={styles.scrollbarBox}>
+          <div ref={refScroll as any} style={{ height: 1 }}></div>
         </div>
       </Affix>
-    </Table.Summary.Cell>
+    </div>
   );
 };
