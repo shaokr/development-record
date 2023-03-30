@@ -23,7 +23,8 @@ type TableScrollProps = {
 
 const getParentNodeScroll = (parentNode: HTMLElement | null | undefined): HTMLElement | undefined => {
   if (!parentNode) return undefined;
-  if (parentNode.scrollHeight - parentNode.clientHeight > 50) {
+  const computedStyle = getComputedStyle(parentNode);
+  if (computedStyle.overflowY === 'scroll' || computedStyle.overflowY === 'auto') {
     return parentNode;
   }
   return getParentNodeScroll(parentNode.parentNode as HTMLElement);
